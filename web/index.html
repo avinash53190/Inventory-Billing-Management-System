@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StockFlow &bull; Inventory & Billing Management</title>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Remix Icon (Modern clean SVG icons) -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="brand-logo">
+          <div class="logo-icon">
+            <i class="ri-box-3-fill"></i>
+          </div>
+          <div class="brand-info">
+            <span class="brand-name">StockFlow</span>
+            <span class="brand-badge">Enterprise</span>
+          </div>
+        </div>
+        <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="Close menu">
+          <i class="ri-close-line"></i>
+        </button>
+      </div>
+
+      <div class="sidebar-section-title">MAIN MENU</div>
+      <nav class="sidebar-nav" id="sidebarNav"></nav>
+
+      <div class="sidebar-footer">
+        <div class="db-status-chip">
+          <span class="status-indicator online"></span>
+          <div class="status-meta">
+            <span class="status-title">MySQL 8.0 &bull; 3306</span>
+            <span class="status-sub">inventory_db connected</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Container -->
+    <div class="main-wrapper">
+      <!-- Top Navbar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle-btn" id="menuToggleBtn" aria-label="Toggle navigation">
+            <i class="ri-menu-2-line"></i>
+          </button>
+          <div class="page-breadcrumb">
+            <span class="crumb-root">App</span>
+            <i class="ri-arrow-right-s-line"></i>
+            <span class="crumb-current" id="breadcrumbTitle">Dashboard</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="system-clock">
+            <i class="ri-time-line"></i>
+            <span id="liveClock">--:--:--</span>
+          </div>
+
+          <div class="topbar-divider"></div>
+
+          <button class="quick-action-btn primary" id="quickNewBillBtn">
+            <i class="ri-file-add-line"></i>
+            <span>Create Bill</span>
+          </button>
+
+          <div class="user-pill">
+            <div class="user-avatar">
+              <i class="ri-user-smile-line"></i>
+            </div>
+            <div class="user-details">
+              <span class="user-name">Root Admin</span>
+              <span class="user-role">Administrator</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- App Dynamic View -->
+      <main class="content-container" id="app"></main>
+    </div>
+  </div>
+
+  <!-- Reusable Modal Dialog for Add/Edit -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal-card" id="modalCard">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <i class="ri-edit-box-line modal-title-icon" id="modalIcon"></i>
+          <h3 id="modalTitle">Edit Record</h3>
+        </div>
+        <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close dialog">
+          <i class="ri-close-line"></i>
+        </button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- Printable Invoice Preview Modal -->
+  <div class="modal-backdrop" id="invoiceModalBackdrop">
+    <div class="modal-card invoice-modal" id="invoiceModalCard">
+      <div class="modal-header no-print">
+        <div class="modal-title-group">
+          <i class="ri-file-paper-2-line modal-title-icon"></i>
+          <h3>Invoice Receipt</h3>
+        </div>
+        <div class="modal-header-actions">
+          <button class="btn btn-secondary btn-sm" onclick="window.print()">
+            <i class="ri-printer-line"></i> Print
+          </button>
+          <button class="modal-close-btn" id="invoiceCloseBtn">
+            <i class="ri-close-line"></i>
+          </button>
+        </div>
+      </div>
+      <div class="invoice-container" id="invoiceContent"></div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Center -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
